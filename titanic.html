@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto 1</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Data Kakiuti</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="projetos.html">Projetos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contato.html">Contato</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Projeto 1 Content -->
+    <section class="p-5 bg-light">
+      <div class="container" >
+        <h1 class="mb-4" style="text-align: center;" >10 curiosidades sobre o Titanic</h1>
+        <p class="lead" style="text-align: center;">Explore a jornada dos passageiros do Titanic através dos dados.<br><br>
+          &nbsp;&nbsp;Esse projeto tem como fim mostrar habilidades básicas de consultas com SQL. Retirei 
+          o dataset do site Kaggle. Como eu ainda não tinha tido a idéia de criar um site como 
+          portfólio acabei esquecendo de salvar o link pra mostrar pra vocês. No começo do 
+          projeto eu sabia muito pouco sobre SQL e análise de dados, na verdade só tinha 
+          feito um curso sobre o SQL onde não tirei muito proveito pois não haviam projetos 
+          práticos.<br>
+          &nbsp;&nbsp;O projeto é constituído de 10 curiosidades sobre o Titanic. 
+          Cada tópico é separado por: pergunta, insights, análise dos dados com consulta SQL e 
+          explicação de cada comando.<br>
+          &nbsp;&nbsp;Você pode conferir os códigos através do GitHub pelo link <a href="/">Link</a>
+        </p>
+        <img src="https://miro.medium.com/v2/resize:fit:2560/0*1pQ4LZENtCzGE6wK.jpg" alt="Imagem do Projeto 1" class="img-fluid rounded mb-4">
+        <h3 class="questao">1 - Quantos passageiros estavam a bordo do Titanic?</h3>
+        <p class="insight">Contar o total de passageiros é o primeiro passo das minhas análises. 
+          Sem saber o tamanho do dataset nada podemos ter de informações concretas. Se você 
+          pesquisar no Google, verá que o Titanic tinha cerca de 1.316 passageiros (esse número 
+          pode variar dependendo da fonte). O resultado da minha consulta foi 418, sugerindo que o meu dataset ou é composto de dados amostrais ou tem dados faltantes.</p>
+        <div class="container">
+          <pre class="code-box">
+            <p>SELECT COUNT(*) as total_de_passageiros<br>FROM Titanic;</p>
+          </pre>
+        </div>
+        <p># total_de_passageiros = 418</p>
+        <p>O comando acima usa (SELECT) (um comando de projeção que seleciona as colunas) 
+          combinado com uma função agregadora (COUNT(*)) para contar as linhas da tabela  e 
+          mostrar o resultado em uma só linha com a quantidade total de passageiros. 
+          A cláusula (FROM Titanic) seleciona a tabela Titanic. A coluna da linha de saída é 
+          renomeada como 'total_de_passageiros' (as total_de_passageiros). O ponto e vírgula 
+          serve para dizer ao SQL que o comando está finalizado.</p>
+          <br>
+        <p>Essa parte me ensinou a questionar a qualidade dos dados para evitar conclusões 
+          erradas. Cheguei a me perguntar se deveria continuar com esse mesmo dataset, porém 
+          concluí que como esse projeto tem como intuito mostrar habilidades básicas com SQL 
+          resolvi proseguir com esse mesmo dataset.</p>
+  
+      </div>
+
+      <div class="container">
+        <h3 class="questao">2 - Quantos passageiros sobreviveram ao naufrágio?</h3>
+        <p class="insight">O Titanic foi batizado assim para transmitir a ideia de 
+          grandiosidade e invencibilidade. Como podemos ver o total de sobreviventes foi de 
+          apenas 152 (no caso desse dataset), ironizando sua fama de "indestrutível".</p>
+        <div class="container">
+          <pre class="code-box">
+            <p>SELECT COUNT(*) as total_sobreviventes<br>FROM Titanic<br>WHERE Survived = 1;
+              </p>
+          </pre>
+        </div>
+        <p># total_sobreviventes = 152</p>
+        <p>Chamo a função contadora renomeando a coluna de saída como 
+          'total_sobreviventes'. Esse trecho é muito parecido com o anterior, porém desta 
+          vez adiciono a clausula WHERE que irá filtrar o resultado de contagem selecionando 
+          apenas as partes onde  a coluna Survived é igual a 1 (WHERE Survived = 1). </p>
+          <br>
+        <p>Para ir um pouco mais além e mostrar números de uma forma que impacte mais resolvi fazer a consulta com o número em porcentagem (36%).</p>
+        <div class="container">
+          <pre class="code-box">
+            <p>SELECT<br>AVG(Survived) * 100 as taxa_sobreviventes<br>FROM Titanic;
+              </p>
+          </pre>
+        </div>
+        <p># taxa_sobreviventes = 36.3636 ou 36%</p>
+        <p>Agora temos o SELECT combinado a função a função agregadora (AVG). (AVG(Survived)) 
+          irá trazer uma média da coluna Survived. Esse foi um método eficiente para extrair a 
+          porcentagem de sobreviventes da tabela, pois na Coluna Survived temos apenas dois 
+          tipos de informação, '0' para 'não sobreviventes' e '1' para 'sobreviventes', sendo 
+          assim conseguimos extrair a média de sobreviventes somando os '1' e '0' que vai 
+          resultar no número de sobreviventes em seguida esse número é dividido pelo número 
+          total de pessoas no navio e multiplicado por 100.</p>
+
+      </div>
+
+      <div class="container">
+        <h3 class="questao">3 - Qual era a idade média dos passageiros?</h3>
+        <p class="insight">A média de idade é um fator importante para entendermos quem são 
+          os passageiros do Titanic. A consulta retornou que a média de idade dos passageiros 
+          era de 24 anos, constatando que a maioria dessas pessoas eram jovens, e pelo 
+          contexto social, provavelmente estavam tentando melhores oportunidades de vida na 
+          América. Vale ressaltar que os dados oficiais dizem que essa média era na verdade 
+          de 29 anos.</p>
+        <div class="container">
+          <pre class="code-box">
+            <p>SELECT<br>&nbsp;&nbsp;&nbsp;&nbsp;AVG(Age) as media_idade<br>FROM Titanic;
+              </p>
+          </pre>
+        </div>
+        <p># media_idade = 24.0622 ou 24 anos</p>
+        <p>Antes da análise, no meio do tratamento decidi converter a coluna de idade (Age) 
+          de float para inteiro – afinal, ninguém tem 25.7 anos, certo? Errado.
+          Descobri da pior maneira que, ao truncar os decimais, a média de idades do dataset 
+          ficou levemente distorcida. Quando fui calcular a média "perfeita", percebi que 
+          havia cometido um erro, excluir os decimais alterava o resultado final. </p>
+          <br>
+      </div>
+
+
+      <div class="container">
+        <h3 class="questao">4 - Quantos passageiros eram homens e quantos eram mulheres?</h3>
+        <p class="insight">Podemos notar que a maioria dos passageiros eram homens. Essa 
+          informação é importante para entendermos a taxa baixa de sobrevivência. Muitos 
+          homens deixaram de serem salvos pois os botes salva vidas davam preferência a 
+          mulheres e crianças. </p>
+        <div class="container">
+          <pre class="code-box">
+            <p>SELECT Sex,<br>&nbsp;&nbsp;&nbsp;&nbsp;COUNT(*) as qtd_homens_mulheres<br>FROM Titanic<br>GROUP BY Sex;</p>
+          </pre>
+        </div>
+        <p># qtd_homens_mulheres = female 152 - male 266</p>
+        <p>Dessa vez o comando de seleção, além de chamar a função 
+          contadora, vem acompanhado de uma cláusula de agrupamento (GROUP BY) que separa a 
+          contagem pelos dois grupos que compõem a coluna: 'male', 'female'. Somente o comando 
+          SELECT não mostra o resultado com seus respesctivos nomes, ou seja, o número de cada
+           grupo aparece sozinho sem indicação de onde pertence esse número. Com (SELECT Sex,)
+            conseguimos nomear o resultado mostrando que '152' pertence ao grupo 'female'.</p>
+          <br>
+      </div>
+
+
+      <div class="container">
+        <h3 class="questao">5 - Quantos passageiros viajavam em cada classe?</h3>
+        <p class="insight">Essa consulta nos mostra que a maior parte dos tripulantes eram da 
+          terceira classe, conectando com a informação de que a muitos dos passageiros 
+          provavelmente eram pessoas que estavam tentando a vida na América. </p>
+        <div class="container">
+          <pre class="code-box">
+            <p>SELECT Pclass,<br>&nbsp;&nbsp;&nbsp;&nbsp;COUNT(*) as total_passageiros_por_classe<br>FROM Titanic<br>GROUP BY Pclass;</p>
+          </pre>
+        </div>
+        <p># total_passageiros_por_classe = 3 classe tinha 218 passageiros,  
+        2 classe tinha 93 passageiros e  1 classe tinha 107 passageiros
+        </p>
+        <p>Temos uma consulta muito parecida com a anterior, no entanto 
+          estamos vendo agora o total de passageiros em cada classe. O agrupamento foi feito 
+          na coluna Pclass onde temos três tipos de informações: '1' de primeira classe, '2' 
+          de segunda classe e '3' de terceira classe.</p>
+          <br>
+      </div>
+
+
+      <div class="container">
+        <h3 class="questao">6 - Quantos passageiros sobreviveram e quantos não sobreviveram?</h3>
+        <p class="insight">Aqui vemos que o número de sobreviventes foi menor que o de não 
+          sobreviventes. Isso se deve ao fato dos botes salva vidas estarem mal localizados 
+          e de que a preferência para entrar nos botes era de mulheres e crianças.</p>
+        <div class="container">
+          <pre class="code-box">
+            <p>SELECT Survived, <br>&nbsp;&nbsp;&nbsp;&nbsp;COUNT(*) as sobreviventes_e_nao_sobreviventes<br>FROM Titanic <br>GROUP BY Survived;
+          </p>
+          </pre>
+        </div>
+        <p># sobreviventes_e_nao_sobreviventes = não sobreviveu - 266, sobreviveu - 152
+          </p>
+        <p>Mais uma vez uma query que usa GROUP BY.
+           Dessa vez agrupamos o número total de sobreviventes e não sobreviventes.
+        </p>
+          <br>
+      </div>
+
+
+      <div class="container">
+        <h3 class="questao">7 - Qual era a idade do passageiro mais jovem e a do mais velho? </h3>
+        <p class="insight">Podemos ver aqui que a idade era bem variada no navio. 
+          Temos desde passageiros que não tinham nem uma ano até passageiros com 76 anos. </p>
+        <div class="container">
+          <pre class="code-box">
+            <p>SELECT <br>&nbsp;&nbsp;&nbsp;&nbsp;MIN(Age) AS passageiro_mais_jovem,<br>&nbsp;&nbsp;&nbsp;&nbsp;MAX(Age) AS passageiro_mais_velho<br>FROM Titanic;</p>
+          </pre>
+        </div>
+        <p># passageiro_mais_jovem = 0, passageiro_mais_velho = 76</p>
+        <p>Usei aqui as funções de agregação (MIN(Age)) e (MAX(Age)) 
+          para me retornar o valor da idade minima e máxima.</p>
+          <br>
+        <p>Achei essa consulta um tanto superficial e decidi ir mais além! Fiz uma consulta sobre a 
+          quantidade de registros com 0 anos e o MYSQL retornou uma informação assustadora! Haviam 88 
+          passageiros com essa idade. Só Havia duas possibilidades, ou o navio estava repleto de bebês
+           ou as idades foram registradas erradas. Fiz uma pesquisa no GOOGLE e descobri que o Titanic
+            tinha cerca de 107 crianças. Para a minha surpresa nenhum dos meus palpites estavam certos,
+             meu dataset era uma amostra com problemas de qualidade dos dados, pois 88 crianças numa 
+             população de 418 passageiros não é uma representação boa de 107 crianças numa população 
+             de 1.326 passageiros.
+        </p>
+
+             <div class="container">
+              <pre class="code-box">
+                <p>SELECT COUNT(*) as passageiros_bebes<br>FROM Titanic<br>WHERE Age = (SELECT MIN(Age) FROM Titanic);</p>
+              </pre>
+            </div>
+            <p># passageiros_bebes = 88</p>
+            <p>Misturando a função COUNT(*) com o filtro (WHERE) com a função 
+              (MIN) para contar o número de passageiros que tem a menor idade. Repare que essa 
+              consulta contém uma subquery ((SELECT MIN(Age) FROM Titanic)), que é uma consulta 
+              aninhada dentro de outra consulta.</p>
+            <br>
+            <p>Nesse ponto eu travei. Não sabia se faria sentido continuar com um dataset 
+              problemático, afinal eu quero apresentar um bom trabalho com dados fiéis. Bom, já 
+              tinha começado o projeto sabendo que os dados não seriam fiéis ao dataset oficial, 
+              porém eu esperava que pelo menos esses dados fossem uma boa representação dos oficiais. 
+              Ví que as coisas não iam ser do jeito que eu queria mas sabia que tinha que continuar, 
+              afinal o principal ponto do projeto é apresentar um material de aprendizado dos 
+              primeiros passos com SQL. </p>
+      </div>
+
+
+      <div class="container">
+        <h3 class="questao">8 - Quantos passageiros sobreviveram de cada classe?</h3>
+        <p class="insight">Respondendo a essa questão chegamos num dos pontos mais polêmicos do 
+          Titanic. Apesar de mais pessoas terem sobrevivido na terceira classe (218) essa não foi a 
+          classe com maior taxa de sobrevivência, em primeiro lugar na taxa de sobrevivência temos a 
+          primeira classe com 47%. Isso se deve a má disposição dos botes e devido ao fato de que 
+          ficavam perto da área de lazer da primeira e da segunda classe, onde a terceira classe não 
+          tinha acesso. Além disso a terceira classe enfrentou barreiras físicas para chegar até os 
+          botes, eles foram bloqueados em suas áreas pela tripulação, impossibilitando que chegassem 
+          aos botes.</p>
+        <div class="container">
+          <pre class="code-box">
+            <p>SELECT Pclass,<br>&nbsp;&nbsp;&nbsp;&nbsp;COUNT(*) as total_sobreviventes_por_classe<br>FROM Titanic<br>GROUP BY Pclass</p>
+          </pre>
+        </div>
+        <p># total_sobreviventes_por_classe - classe 3 = 218,  classe 2 = 93, classe 1 = 107</p>
+        <p>Uma consulta com o uso de (COUNT(*)) e (GROUP BY) para fazer uma 
+          contagem das linhas separadas pelas classes.</p>
+          <br><br><br>
+          <div class="container">
+            <pre class="code-box">
+              <p> SELECT Pclass,<br>&nbsp;&nbsp;&nbsp;&nbsp;AVG(Survived) * 100 as taxa_sobreviventes_por_classe<br>FROM Titanic<br>GROUP BY Pclass;</p>
+            </pre>
+          </div>
+      </div>
+      <p># Pclass, taxa_sobreviventes_por_classe - classe 3 = 33%, classe 2 = 32%,classe 1 = 47%</p>
+      <p>Misturando (AVG) com (GROUP BY) para encontrar a taxa de sobreviventes em cada classe
+      </p>
+
+      <div class="container">
+        <h3 class="questao">9 - Liste os nomes dos passageiros com mais de 30 anos de idade.</h3>
+        <p class="insight">Foi solicitado uma lista com os nomes dos passageiros com mais de 30 anos, para 
+          organizar de forma que se possa ter mais noção eu fiz também uma contagem dessa lista (132). Em 
+          seguida consultei também a média de quantas pessoas tinham mais que 30 anos e ví que 31,5% das 
+          pessoas correpondiam. Note que esse número é de quase 1/3 da população do navio.
+        </p>
+        <div class="container">
+          <pre class="code-box">
+            <p>SELECT Name<br>FROM Titanic<br>WHERE Age > 30;</p>
+          </pre>
+        </div>
+        <p>Não vou mostrar aqui a lista toda pois ela é muito extensa, decidi colocar alguns registros para ilustrar</p>
+        <p>Kelly, Mr. James</p>
+        <p>Wilkes, Mrs. James (Ellen Needs)</p>
+        <p>Myles, Mr. Thomas Francis</p>
+        <p>Jones, Mr. Charles Cresson</p>
+        <p>Howard, Mr. Benjamin</p>
+        <p>Acima o comando de projeção dos nomes das pessoas (SELECT Name) filtrado pela idade (WHERE Age > 30). </p>
+          <br>
+          <div class="container">
+            <pre class="code-box">
+              <p>SELECT COUNT(*) AS passageiros_maiores_30_anos<br>FROM Titanic<br>WHERE Age > 30;</p>
+            </pre>
+          </div>
+          <p># passageiros_maiores_30_anos = 132</p>
+      </div>
+      <br><br><br>
+      <div class="container">
+        <pre class="code-box">
+          <p>SELECT<br>&nbsp;&nbsp;&nbsp;&nbsp;AVG(CASE WHEN Age > 30 THEN 1 ELSE 0 END) * 100 AS proporcao_maiores_30_anos<br>FROM Titanic</p>
+        </pre>
+      </div>
+      <p># proporcao_maiores_30_anos = 31,5%</p>
+      <p>Aqui temos uma Query interessante onde chamo a função (AVG) e coloco dentro dela 
+        uma estrutura condicional, ou seja, se caso Age for maior que 30 temos o resultado de 1, caso 
+        contrário o resultado é 0. A função (AVG) vai somar todos esses 1 e 0 e vai dividir pelo número total 
+        de linhas, resultando na média de pessoas com mais de 30 anos. Para finalizar eu multiplico o 
+        resultado por 100 para termos um número mais ilustrativo.</p>
+
+      <div class="container">
+        <h3 class="questao">10 - Qual a faixa de idade com a maior média de tarifas pagas pelos passageiros?</h3>
+        <p class="insight">Aqui resolvi fazer 3 consultas separadas, cada uma contendo uma faixa de idade e conferindo
+           a média da tarifa para essa faixa.</p>
+        <div class="container">
+          <pre class="code-box">
+            <p>SELECT<br>&nbsp;&nbsp;&nbsp;&nbsp;AVG(Fare) AS media_tarifa_idade_menor_25<br>FROM Titanic<br>WHERE Age <= 25;</p>
+          </pre>
+        </div>
+        <p># media_tarifa_idade_menor_25 = 51468.268219808735</p>
+        <p>A consulta é simples  e calcula a media com (AVG(Fare)) e filtra o resultado com (WHERE Age <= 25) para idade menor ou igual a 25 anos. 
+        </p>
+          <br><br><br>
+          <div class="container">
+            <pre class="code-box">
+              <p>SELECT<br>&nbsp;&nbsp;&nbsp;&nbsp;AVG(Fare) AS maior_25_menor_50<br>FROM Titanic<br>WHERE Age > 25 AND Age <= 50;</p>
+            </pre>
+          </div>
+          <p># maior_25_menor_50 = 131898.10553022902</p>
+          <p>Repito a mesma estrutura mas dessa vez a faixa fica entre 25 e 50 anos.
+          </p>
+          <br><br><br>
+          <div class="container">
+            <pre class="code-box">
+              <p>SELECT<br>&nbsp;&nbsp;&nbsp;&nbsp;AVG(Fare) AS maior_que_50<br>FROM Titanic<br>WHERE Age > 50;</p>
+            </pre>
+          </div>
+          <p># maior_que_50 = 617575.0705645777</p>
+          <p>Agora é só idades acima de 50.</p>
+        
+      </div>
+
+
+      
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center p-3">
+      <p>Data Kakiuti &copy; 2025. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
